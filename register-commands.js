@@ -1,10 +1,13 @@
 require('dotenv').config();
 const { REST, Routes, SlashCommandBuilder, PermissionsBitField } = require('discord.js');
 
-const { DISCORD_TOKEN, CLIENT_ID } = process.env;
+// Hardcoding the Client ID provided by the user.
+const BOT_CLIENT_ID = '1399372941980078220';
 
-if (!DISCORD_TOKEN || !CLIENT_ID) {
-    console.error("Error: DISCORD_TOKEN and CLIENT_ID must be provided in your .env file.");
+const { DISCORD_TOKEN } = process.env;
+
+if (!DISCORD_TOKEN) {
+    console.error("Error: DISCORD_TOKEN must be provided in your .env file.");
     process.exit(1);
 }
 
@@ -31,7 +34,7 @@ const rest = new REST({ version: '10' }).setToken(DISCORD_TOKEN);
         console.log('Started refreshing application (/) commands.');
 
         await rest.put(
-            Routes.applicationCommands(CLIENT_ID),
+            Routes.applicationCommands(BOT_CLIENT_ID),
             { body: commands },
         );
 

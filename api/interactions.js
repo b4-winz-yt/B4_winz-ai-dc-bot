@@ -14,10 +14,11 @@ const {
 // --- Configuration & Setup ---
 const app = express();
 
+// Hardcoding the Client ID provided by the user to reduce setup errors.
+const BOT_CLIENT_ID = '1399372941980078220';
+
 const {
     GEMINI_API_KEY,
-    PUBLIC_KEY,
-    CLIENT_ID,
     DISCORD_TOKEN
 } = process.env;
 
@@ -45,7 +46,7 @@ async function getConversationHistory(channelId, limit = 10) {
 
     let history = [];
     for (const message of messages.reverse()) {
-        const role = message.author.id === CLIENT_ID ? 'model' : 'user';
+        const role = message.author.id === BOT_CLIENT_ID ? 'model' : 'user';
         history.push({
             role,
             parts: [{
@@ -139,7 +140,7 @@ const commands = {
         const history = await getConversationHistory(interaction.channel_id);
         const responseText = await generateResponseWithGemini(message, history);
 
-        await rest.patch(Routes.webhookMessage(CLIENT_ID, interaction.token), {
+        await rest.patch(Routes.webhookMessage(BOT_CLIENT_ID, interaction.token), {
             body: {
                 content: responseText
             }
