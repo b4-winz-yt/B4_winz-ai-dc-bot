@@ -85,6 +85,10 @@ app.use(express.json({
 }));
 
 async function verifyDiscordRequest(req, res, next) {
+    // Using the specific public key provided by the user.
+    // This removes the need to set the PUBLIC_KEY environment variable.
+    const BOT_PUBLIC_KEY = '5db1dafd742e74f1c413a9682a43586e420049b3570f09e6d3bcc27190cdca58';
+
     const signature = req.get('x-signature-ed25519');
     const timestamp = req.get('x-signature-timestamp');
 
@@ -93,7 +97,7 @@ async function verifyDiscordRequest(req, res, next) {
     }
 
     try {
-        const isValid = verifyKey(req.rawBody, signature, timestamp, PUBLIC_KEY);
+        const isValid = verifyKey(req.rawBody, signature, timestamp, BOT_PUBLIC_KEY);
         if (!isValid) {
             return res.status(401).send('Bad request signature');
         }
