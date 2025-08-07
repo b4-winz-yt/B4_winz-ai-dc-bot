@@ -73,3 +73,46 @@ You should see a success message confirming the commands were registered. You on
     - Click "Save Changes".
 
 Your bot should now be online and responding to the `/chat` and `/setup` commands in your Discord server! You must invite the bot to your server from the "OAuth2" -> "URL Generator" page in the Discord Developer Portal, selecting the `bot` and `applications.commands` scopes.
+
+---
+
+## Troubleshooting
+
+### Facing "The specified interactions endpoint url could not be verified"?
+
+This is the most common setup issue. It almost always means one of two things:
+
+1.  **Your Vercel application is crashing.** This is usually caused by a missing or incorrect environment variable.
+2.  **Your URL or Public Key in the Discord Developer Portal is wrong.**
+
+**Your first step should always be to check the Vercel logs**, as described in step #1 below. If you see an error like `TypeError: Cannot read properties of undefined` or any other crash, it confirms your environment variables are the problem. Please double-check every single variable in your Vercel project settings.
+
+---
+
+If the bot is not responding to commands, follow these steps to diagnose the issue:
+
+1.  **Check the Vercel Function Logs**:
+    - Go to your project on the Vercel dashboard.
+    - Click on the "Logs" tab.
+    - Select the most recent deployment.
+    - Use the `/chat` command in Discord and watch the logs in real-time. Any errors in the code (like an invalid API key or a bug) will appear here. This is the most important step for debugging.
+
+2.  **Verify the Interactions Endpoint URL**:
+    - In your [Discord Developer Portal](https://discord.com/developers/applications), double-check that the `INTERACTIONS ENDPOINT URL` is correct.
+    - It must point to your Vercel deployment URL and end with `/api/interactions`.
+    - **Example**: `https://your-project-name.vercel.app/api/interactions`
+    - If you update this URL, make sure to click "Save Changes". Discord may take a minute to update.
+
+3.  **Confirm Environment Variables**:
+    - In your Vercel project settings, go to "Environment Variables".
+    - Ensure that `DISCORD_TOKEN`, `CLIENT_ID`, `PUBLIC_KEY`, and `GEMINI_API_KEY` are all present and have the correct values. A small typo can cause failures.
+    - Also, check the "Storage" tab to ensure your KV store is properly connected to the project.
+
+4.  **Check Bot Scopes and Permissions**:
+    - Make sure you invited the bot to your server using a URL generated with the correct scopes.
+    - In the Discord Developer Portal, go to "OAuth2" -> "URL Generator".
+    - Select the `bot` and `applications.commands` scopes.
+    - Re-invite the bot to your server using the newly generated URL if you are unsure.
+
+5.  **Re-register Commands**:
+    - If the commands don't appear in Discord at all, it might be a registration issue. Try running `npm run register` again locally to be sure.
