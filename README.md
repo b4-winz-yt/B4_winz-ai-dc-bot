@@ -67,6 +67,7 @@ Next, create a `.env` file in the root of the project by copying the example fil
 ```bash
 cp .env.example .env
 ```
+> **Note:** The `.env.example` file is a template. This command creates the actual `.env` file that the application uses for local development (e.g. running the `register` script). The `.env` file is where you will put your secret keys, and it is ignored by git so you don't accidentally share them. The code (`require('dotenv').config()`) specifically looks for and reads the `.env` file.
 
 Now, open the `.env` file and fill in the values you gathered in Step 1.
 
