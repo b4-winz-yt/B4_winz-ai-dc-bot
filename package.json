@@ -1,0 +1,18 @@
+{
+  "name": "gemini-discord-bot",
+  "version": "1.0.0",
+  "description": "A serverless Discord bot using Gemini and Vercel.",
+  "main": "api/interactions.js",
+  "scripts": {
+    "start": "node .",
+    "register": "node register-commands.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.16.0",
+    "@vercel/kv": "^2.0.0",
+    "discord-api-types": "^0.37.92",
+    "discord.js": "^14.15.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
