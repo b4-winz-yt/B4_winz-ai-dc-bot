@@ -15,14 +15,13 @@ The bot's code tries to start up, but it can't find the API keys it needs, so it
 1.  Go to your project on the **Vercel Dashboard**.
 2.  Click the **Settings** tab.
 3.  Click on **Environment Variables** in the side menu.
-4.  You **must** have all four of the following variables set up. Check them for typos. Ensure there are no extra spaces or characters.
+4.  You **must** have all three of the following variables set up. Check them for typos. Ensure there are no extra spaces or characters. The `PUBLIC_KEY` has been hardcoded for you.
 
     - `DISCORD_TOKEN`
     - `CLIENT_ID`
-    - `PUBLIC_KEY`
     - `GEMINI_API_KEY`
 
-5.  After you have confirmed all four variables are set correctly, you **must re-deploy** your application. Go to the "Deployments" tab on Vercel, click the "..." menu on your latest deployment, and select "Redeploy".
+5.  After you have confirmed all three variables are set correctly, you **must re-deploy** your application. Go to the "Deployments" tab on Vercel, click the "..." menu on your latest deployment, and select "Redeploy".
 
 This will solve the crash. Once the function is running, Discord will be able to verify the endpoint URL.
 
@@ -51,9 +50,9 @@ You will need to gather the following secrets and IDs:
 
 - **Discord Bot Token**: Go to your [Discord Developer Portal](https://discord.com/developers/applications), create a new application, and go to the "Bot" tab. Click "Reset Token" to get your token.
 - **Discord Client ID**: On the "General Information" page of your application, you'll find the `APPLICATION ID`. This is your Client ID.
-- **Discord Public Key**: Also on the "General Information" page, you'll find the `PUBLIC KEY`.
 - **Gemini API Key**: Go to [Google AI Studio](https://aistudio.google.com/app/apikey) and create a new API key.
 - **Vercel KV Store**: You'll set this up during the Vercel deployment.
+(Note: The bot's `PUBLIC_KEY` has been hardcoded into the application for you.)
 
 #### 2. Local Configuration (for running commands)
 
@@ -86,7 +85,7 @@ You should see a success message confirming the commands were registered. You on
 #### 4. Deploy to Vercel
 
 1.  **Create a Vercel Project**: Go to your Vercel dashboard and create a new project, linking it to your forked/cloned GitHub repository.
-2.  **Configure Environment Variables**: In the project settings on Vercel, navigate to "Environment Variables". Add the `DISCORD_TOKEN`, `CLIENT_ID`, `PUBLIC_KEY`, and `GEMINI_API_KEY` with the same values from your `.env` file. **THIS IS THE MOST COMMON POINT OF FAILURE.**
+2.  **Configure Environment Variables**: In the project settings on Vercel, navigate to "Environment Variables". Add the `DISCORD_TOKEN`, `CLIENT_ID`, and `GEMINI_API_KEY` with the same values from your `.env` file. **THIS IS THE MOST COMMON POINT OF FAILURE.**
 3.  **Set up Vercel KV**:
     - Go to the "Storage" tab in your Vercel project.
     - Create a new KV (Redis) database.
